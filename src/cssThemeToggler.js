@@ -20,12 +20,35 @@ let themes = [
 ];
 
 function getChosenTheme(){
-
+    let foundTheme = localStorage.getItem("theme");
+    console.log(foundTheme);
+    return foundTheme;
 };
 
 function setChosenTheme(newThemeName){
+    localStorage.setItem("theme", newThemeName);
 
 };
+if (getChosenTheme() == null) {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme; dark)")
+    if (darkThemeMq.matches) {
+        setChosenTheme("dark");
+    } else {
+        setChosenTheme("light");
+    }
+}
+
+
+function toggleTheme (){
+    if (getChosenTheme() == "dark") {
+        setChosenTheme("light");
+    }else {
+        setChosenTheme("dark");
+    }
+}
+
+let themeToggleButton = document.getElementById("themeToggle");
+themeToggleButton.onclick = toggleTheme;
 
 function updateCSSVariables() {
     
